@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
+
+import socket from "../socket";
 import React, { useState } from "react";
 const Main = () => {
   const [lines, setLines] = useState([
-    { raw: "abcdefg" },
-    { raw: "hijklmn" },
-    { raw: "opqrstu" },
-    { raw: "vwxyz" },
+    { raw: "const helloWorld = () => {" },
+    { raw: "[...Array(100000).fill()].forEach(item =>" },
+    { raw: "let i = 1;" },
+    { raw: "if (i === 100000) return true;" },
+    { raw: "};" },
   ]);
   const handleKeyPress = (event) => {
-    event.preventDefault();
     if (event.key === "Enter") {
-      console.log("nl");
-
+      socket.emit("new-line", "data");
       setLines([...lines, "new line"]);
     }
   };
@@ -23,7 +24,7 @@ const Main = () => {
         justifyContent: "center",
         alignItems: "flex-start",
         height: "100vh",
-        width: "80vw",
+        width: "100vw",
       }}
     >
       <h1>hello</h1>
@@ -31,7 +32,7 @@ const Main = () => {
         <section
           key={idx}
           style={{
-            width: "100%",
+            width: "90%",
             height: 30,
             display: "flex",
             justifyContent: "center",
